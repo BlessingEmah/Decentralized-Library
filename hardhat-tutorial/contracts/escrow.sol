@@ -16,7 +16,7 @@ contract Escrow{
     constructor(address payable _reader, uint _amount) {
         reader = _reader;
         amount = _amount;
-        escrow = msg.sender; // i dont feel this is accurate
+        escrow = msg.sender; 
     }
 
     function deposit() payable public{
@@ -24,14 +24,10 @@ contract Escrow{
        require(address(this).balance <= amount);
 
     }
-
-
 //release funds - 
     function release() public {
         require(address(this).balance == amount, "cannot release funds until full amount is sent");
-        //making sure it is only the lawyer that can call this functiom - why not create 
-        //modifier (access control)
-        //custom errors
+    
         require(msg.sender == escrow, "only lawyer can release funds");
         reader.transfer(amount);    
     }
